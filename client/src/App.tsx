@@ -1,11 +1,13 @@
 import './App.css'
-import SampleGrid from "./score/SampleGrid.tsx";
+import DisplayScore from './DisplayScore'
 
 function App() {
   return (
-      <>
-          <SampleGrid/>
-      </>
+    <>
+      <h1 className="d-flex justify-content-center p-5">Live Score</h1>
+
+      <DisplayScore/>
+    </>
   )
 }
 
