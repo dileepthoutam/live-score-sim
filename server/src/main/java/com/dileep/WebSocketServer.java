@@ -32,7 +32,7 @@ public class WebSocketServer {
                 ObjectMapper mapper = new ObjectMapper();
                 String data = mapper.writeValueAsString(score);
                 session.getAsyncRemote().sendText(data);
-                Thread.sleep(1500);
+                Thread.sleep(2000);
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,5 +1,34 @@
+import { useEffect, useState } from "react";
+import { LiveScore } from "./LiveScore";
 
 export default function DisplayScore() {
+
+  const [totalScore, setTotalScore] = useState(0)
+  const [score, setScore] = useState<LiveScore>({
+    ball: "",
+    striker: "",
+    nonStriker: "",
+    bowler: "",
+    runsOffBat: 0,
+    extras: 0,
+    wicketType: "",
+    playerDismissed: "",
+  })
+  const URL = "ws://localhost:3000/ws/feed"
+
+  useEffect(() => {
+    const ws = new WebSocket(URL);
+
+    ws.onopen = () => {
+      console.log('server connected.')
+    }
+
+    ws.onmessage = (event) => {
+      const score: LiveScore = JSON.parse(event.data)
+      setTotalScore((prev) => prev + score.runsOffBat)
+    }
+  })
+
   return (
     <>
       <div className="container">
@@ -7,8 +36,8 @@ export default function DisplayScore() {
           <div className="col-md-4">
             <div className="card p-5">
               <div className="card-body">
-                <h5 className="card-title">Card 1</h5>
-                <p className="card-text">Some content for the first card.</p>
+                <h1 className="card-title">{totalScore}</h1>
+                <p className="card-text">Total score</p>
               </div>
             </div>
           </div>
